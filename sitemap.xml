@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>/learning-how-to-speak.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>/rainiers-2015-in-review.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>/binary-search-implementation-in-erlang-whats-going-on.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>/mining-18000-texts-for-fun-and-no-profit.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>/seeing-if-this-script-worked.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>/hello-world.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>/pages/blog.html</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>/projects</loc>
+    <priority>1.0</priority>
+  </url>
+
+
+</urlset>

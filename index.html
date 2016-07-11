@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <title>about</title>
+
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/theme/css/poole.css"/>
+    <link rel="stylesheet" href="/theme/css/syntax.css"/>
+    <link rel="stylesheet" href="/theme/css/lanyon.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    <link rel="stylesheet" href="/theme/css/styles.css"/>
+  </head>
+
+  <body class="layout-reverse">
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <div class="profile">
+      <img src="/theme/img/profile.png"/>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <a class="sidebar-nav-item" href="/#about">about</a>
+    <a class="sidebar-nav-item" href="/pages/blog.html#blog">blog</a>
+    <a class="sidebar-nav-item" href="/projects#projects">projects</a>
+
+
+  </nav>
+
+  <div class="sidebar-item">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <ul class="social">
+      <li><a class="sc-github" href="https://github.com/rainiera" target="_blank"><i class="fa fa-github"></i></a></li>
+      <li><a class="sc-angellist" href="https://angel.co/rainiera" target="_blank"><i class="fa fa-angellist"></i></a></li>
+      <li><a class="sc-linkedin" href="https://linkedin.com/in/rainiera" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+      <li><a class="sc-twitter" href="https://twitter.com/rainieratx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2016. All rights reserved.
+    </p>
+    <p class="tiny-note">
+      <a class="muted" href="https://github.com/thomaswilley/pelicanyan">pelicanyan v0.1</a>
+    </p>
+  </div>
+</div>    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">rainier</a>
+            <small>codes, reads, and blogs</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+    <h1>about</h1>
+    
+
+    <p>I am a third-year computer science major and biology minor <a href="http://cs.utexas.edu" target="_blank">@<span class="caps">UT</span> Austin</a>&nbsp;(2018).</p>
+<p>Currently a software engineering intern <a href="http://clover.com" target="_blank">@Clover Network</a> in Sunnyvale, <span class="caps">CA</span> (Summer&nbsp;2016).</p>
+<p>I love writing code and solving problems every day. Outside of class, find me working on <a href="http://hacktx.com" target="_blank">HackTX</a> as the Innovation Director or messing around at <a href="http://rainier.io/mining-18000-texts-for-fun-and-no-profit.html" target="_blank">hackathons</a>. Previously, I organized parties as social chair of <a href="http://texaslan.org" target="_blank">Texas ΛAN</a>, a co-ed tech interest&nbsp;fraternity.</p>
+<p><strong>Random coding accounts</strong><br />
+<a href="https://github.com/rainiera" target="_blank">GitHub</a><br />
+<a href="http://rosalind.info/users/rainier" target="_blank">Rosalind</a><br />
+<a href="http://codeforces.com/profile/rainier_" target="_blank">Codeforces</a>  </p>
+<p><strong>Drop a line</strong><br />
+<a href="https://twitter.com/rainieratx" target="_blank">Twitter</a><br />
+rainier <span class="caps">AT</span> utexas <span class="caps">DOT</span>&nbsp;edu</p>
+
+      </div>
+
+      <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+      <script>
+        (function(document) {
+          var i = 0;
+          // snip empty header rows since markdown can't
+          var rows = document.querySelectorAll('tr');
+          for(i=0; i<rows.length; i++) {
+            var ths = rows[i].querySelectorAll('th');
+            var rowlen = rows[i].children.length;
+            if (ths.length > 0 && ths.length === rowlen) {
+              rows[i].remove();
+            }
+          }
+        })(document);
+      </script>
+
+      <script>
+        /* Lanyon & Poole are Copyright (c) 2014 Mark Otto. Adapted to Pelican 20141223 and extended a bit by @thomaswilley */
+        (function(document) {
+          var toggle = document.querySelector('.sidebar-toggle');
+          var sidebar = document.querySelector('#sidebar');
+          var checkbox = document.querySelector('#sidebar-checkbox');
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            if(!checkbox.checked ||
+            sidebar.contains(target) ||
+            (target === checkbox || target === toggle)) return;
+            checkbox.checked = false;
+            }, false);
+            })(document);
+      </script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-57948440-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+       </script>
+     </div>
+  </body>
+</html>

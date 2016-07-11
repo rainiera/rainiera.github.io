@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/rainiera
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://rainier.io
+  * I am rainiera (https://keybase.io/rainiera) on keybase.
+  * I have a public key with fingerprint DC11 1E9D 7F57 B3F9 6340  8914 C246 9D53 5B5A 8553
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0101cffc2dc45eab65bb322e4efe5c71737e639022857f4f4d72d8637fc38141ea2c0a",
+            "fingerprint": "dc111e9d7f57b3f963408914c2469d535b5a8553",
+            "host": "keybase.io",
+            "key_id": "c2469d535b5a8553",
+            "kid": "0101cffc2dc45eab65bb322e4efe5c71737e639022857f4f4d72d8637fc38141ea2c0a",
+            "uid": "229c1adb9bd6fe6f1db4c09c7bd06100",
+            "username": "rainiera"
+        },
+        "service": {
+            "hostname": "rainier.io",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1454732252,
+    "expire_in": 157680000,
+    "prev": "8ce775f51afd28bf7fcb5dc83844d5f11015a7f3be39f8873be61230a4bb8da6",
+    "seqno": 13,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.49
+Comment: https://keybase.io/crypto
+
+yMIdAnicrVJbSBVBGD5mZQlRD/WQBtF2QeNQO7szu7Mm9VAU4UNEkQTmYa7H9dTu
+ac/Rsrv4IGFQSTfKgkiwyKKL0YUiFcUudoEQEoMuBFIUZIVaD9as1UPQY/MyMz/f
+9/3f9/N3TMqMZGecW/48/rG+cG7Gw7bDFZF111IvtmvU51VawXYtIUYvsZGLVDqW
+cLlWoOlAB0xKZnAGkSDUQpSahiGgkAIxG9imLSzT0Q0DI1tCCbltcGyZtmQmBhAI
+YjCdaFFNul5cBMnA9dJKljMAgHC4LZFNTelYJtSxAyAzoOVwZCKKCEbIVMQyPxUy
+lDlKUmKB66ua+sRG7f0D/599V4zKGYbDAOHUodySwpKAU8h0h9mU6xbQ9RCYEoFH
+NgmFDojruSIg2s6opqqVLhPhYMMkfyN+pUkGftpn/kZVL0unkwUhLV2VDHFbBI39
+VohR1+NqiIpQKYKU63taAVBIlnZDSQARtFVCZEQ1sTXpBiLmhghkW1hXJ2wjKpUk
+ZsK2kUSASG5gKlViijjDJoaQIwnU4BCxpUmF6UiMbfWwgGHqBFKKObG0MNNmz1fa
+pvJJ4koz5cY9kq4IhLazvbVkbCQjOzJ+3JhwuyLZE6f82bnvM7NGFsIPK0/Pyaqe
+/qh3ZtdJnBo8u6u+9V1D28qiJ9PacfeaRlZ1BIz4a8uLDzze9+3zrQ2XBoP80ow5
+DZuaOkpb3P7Yra8fli25WD11/ezzr9yivKl5804MP8hf3ji7McjtH146si6xuK7p
+fntPYU1RxaccMv+2GDz+FDYvzX9+pnlo1qWWRGIhNnOqz8ydfLVsxraBHRdymxpP
+1XaX3BuYcDpzVTRZ2vf6WX558eGu+IUx/FDdiv6jd/rgfvKj7jp8/76mueXL3aFF
+F2vqo0c69+7p7uikSV786mkta8BXE1fy+nsvH+MDK7blDnklN2OkrG33m/J59OWW
+2h729kbP6uaRgz8B3pVLIw==
+=RRtO
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/rainiera
+
+==================================================================

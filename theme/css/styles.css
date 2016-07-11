@@ -1,0 +1,105 @@
+.profile {
+  height: 80px;
+  width: 80px;
+  border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  background: url('../img/profile.png') no-repeat center center;
+  background-size: 99% auto;
+}
+.profile img {
+  opacity: 0;
+  filter: alpha(opactiy=0);
+}
+.content-title h2 {
+  color: #9a9a9a;
+}
+table {
+  max-width: 100% !important;
+}
+tr {
+  max-width: 100% !important;
+}
+td {
+  max-width: 100px !important;
+}
+td img {
+  width: 100% auto;
+}
+.tiny-note {
+  font-size: 8pt;
+}
+.muted {
+  color: #9a9a9a !important;
+}
+
+/* Added */
+
+ul.list,
+ul.social {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul.list {
+  padding: 1em 0 1em 0;
+}
+ul.list li {
+  padding: 4px;
+}
+
+ul.social {
+  font-size: 1.6em;
+  /*padding-top: 20px;*/
+}
+ul.social li {
+  display: inline;
+}
+ul.social a:hover {
+  z-index: 2;
+  -webkit-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+ul.social a {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  text-align: center;
+  font-size: .8em;
+  line-height: 36px;
+}
+ul.social a.sc-facebook {
+  background-color: #3e5b98;
+}
+ul.social a.sc-google {
+  background-color: #d93e2d;
+}
+ul.social a.sc-pinterest {
+  background-color: #c92619;
+}
+ul.social a.sc-linkedin {
+  background-color: #3371b7;
+}
+ul.social a.sc-rss {
+  background-color: #f26109;
+}
+ul.social a.sc-stack-overflow {
+  background-color: #ff9900;
+}
+ul.social a.sc-twitter {
+  background-color: #4da7de;
+}
+ul.social a.sc-youtube {
+  background-color: #e02a20;
+}
+ul.social a.sc-github,
+ul.social a.sc-github-alt {
+  background-color: #111010;
+}
+ul.social a.sc-envelope-o {
+  background-color: #578AD6;
+}
+ul.social a.sc-angellist {
+  background-color: slategrey;
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <title>rainier</title>
+
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/theme/css/poole.css"/>
+    <link rel="stylesheet" href="/theme/css/syntax.css"/>
+    <link rel="stylesheet" href="/theme/css/lanyon.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    <link rel="stylesheet" href="/theme/css/styles.css"/>
+  </head>
+
+  <body class="layout-reverse">
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <div class="profile">
+      <img src="/theme/img/profile.png"/>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <a class="sidebar-nav-item" href="/#about">about</a>
+    <a class="sidebar-nav-item" href="/pages/blog.html#blog">blog</a>
+    <a class="sidebar-nav-item" href="/projects#projects">projects</a>
+
+
+  </nav>
+
+  <div class="sidebar-item">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <ul class="social">
+      <li><a class="sc-github" href="https://github.com/rainiera" target="_blank"><i class="fa fa-github"></i></a></li>
+      <li><a class="sc-angellist" href="https://angel.co/rainiera" target="_blank"><i class="fa fa-angellist"></i></a></li>
+      <li><a class="sc-linkedin" href="https://linkedin.com/in/rainiera" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+      <li><a class="sc-twitter" href="https://twitter.com/rainieratx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2016. All rights reserved.
+    </p>
+    <p class="tiny-note">
+      <a class="muted" href="https://github.com/thomaswilley/pelicanyan">pelicanyan v0.1</a>
+    </p>
+  </div>
+</div>    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">rainier</a>
+            <small>codes, reads, and blogs</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+<div class="content-title">
+<h2>Tutorials category</h2>
+</div>
+<div class="posts">
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/binary-search-implementation-in-erlang-whats-going-on.html" rel="bookmark" title="Permalink to Binary search implementation in Erlang - what’s going on?">Binary search implementation in Erlang - what&#8217;s going&nbsp;on?</a>
+    </h1>
+    <span class="post-date">December 27, 2015</span>
+
+    <h2>Let&#8217;s hack on some&nbsp;Erlang</h2>
+<p>Erlang was originally built in the late 80s to handle telecom switches. As such, its major features include primitives for concurrency and error recovery, which led to it making its way into applications requiring fault-tolerance, scalability, and maximum availability. I picked it up to learn more about concurrent programming and because it seemed&nbsp;hip.</p>
+<p>Plus, here&#8217;s an awkwardly-funny video about one of its original uses in&nbsp;telephony:</p>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/xrIjfIjssLE" frameborder="0" allowfullscreen></iframe>
+
+<h2>Setup</h2>
+<p>If you&#8217;re on <span class="caps">OSX</span> and have <a href="http://brew.sh/" target="_blank">Homebrew</a>, you can install Erlang with <code>brew install Erlang</code>.</p>
+<p>Now <code>cd</code> into a directory where you want to keep your file. To make things simpler, you&#8217;ll want to save your program and run the Erlang <span class="caps">REPL</span> from here, too. <code>vim binary_search.erl</code>, and let&#8217;s&nbsp;begin!</p>
+<h2>Writing the&nbsp;header</h2>
+<div class="highlight"><pre><span></span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">binary_search</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">binary_search</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</pre></div>
+
+
+<p><strong>What&#8217;s going&nbsp;on?</strong></p>
+<ul>
+<li>A <em>module</em> is just a bunch of functions regrouped into a single file, and has to be the first statement of the&nbsp;file.</li>
+<li>We can use the name <code>binary_search</code> to call functions from <em>this</em> module into in other modules, in the form <code>M:F(A)</code>, where <code>M</code> is the module name, <code>F</code> is the function name, and <code>A</code> is the&nbsp;arguments.</li>
+<li><code>-export([binary_search/2])</code> defines which functions of the module can be called by the outside world, it describes the public interface of the module. It&#8217;s similar to how encapsulation in <span class="caps">OOP</span> restricts an object&#8217;s externally-usable components through the notions of <code>public</code> and <code>private</code> methods.</li>
+<li>The <code>export</code> attribute has the format <code>-export([Function1/Arity, Function2/Arity, ..., FunctionN/Arity])</code>. The <em>arity</em> of a function or operator is the number of arguments or operands it takes. Thusly, <code>binary_search</code> has an arity of&nbsp;2.</li>
+</ul>
+<h2>Guarding against incorrect&nbsp;types</h2>
+<p>The parameters of a binary search should be some comparable target value and a sorted&nbsp;list.</p>
+<div class="highlight"><pre><span></span><span class="nf">binary_search</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span>
+    <span class="k">when</span>
+        <span class="nb">is_number</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span>
+        <span class="nb">is_list</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="n">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">sort</span><span class="p">(</span><span class="nv">List</span><span class="p">)).</span>
+</pre></div>
+
+
+<p><strong>What&#8217;s going&nbsp;on?</strong></p>
+<ul>
+<li><code>is_number</code> and <code>is_list</code> are built-in functions of Erlang, and they do exactly what you&#8217;d expect. They are part of the <code>erlang</code> module, which is automatically imported whenever you use&nbsp;Erlang.</li>
+<li>But every other function will have to be called in the <code>M:F(A)</code> format described in the last section (<code>M</code> - module name, <code>F</code> - function name, <code>A</code> - arguments)<ul>
+<li>In fact, this is how you will call every function you use in Erlang besides those in the <code>erlang</code> module.</li>
+<li>You know how in Python, you can just <code>from time import sleep</code>, or in C, you <code>#include &lt;stdio.h&gt;</code> to add function names into the current namespace? Well, Erlang has a very flat namespace. This <a href="http://stackoverflow.com/a/4476599/5150563" target="_blank">Stack Overflow link</a> has a good explanation of how it&nbsp;works.</li>
+</ul>
+</li>
+<li><code>when</code> is called a &#8220;guard&#8221; type of clause, and it tells us to perform the action following the <code>-&gt;</code> if all statements between <code>when</code> and <code>it</code> are&nbsp;true.</li>
+<li>Every function ends with a period. Whatever is the last expression of a function to be executed will have its value returned to the caller without it being&nbsp;mentioned.</li>
+</ul>
+<h2>The&nbsp;algorithm</h2>
+<p>The classic binary search algorithm. We will implement it&nbsp;recursively.  </p>
+<p>So, here&#8217;s how it looks in&nbsp;Erlang:</p>
+<div class="highlight"><pre><span></span><span class="nf">bs</span><span class="p">(_,</span> <span class="p">[])</span>   <span class="o">-&gt;</span> <span class="n">false</span><span class="p">;</span>
+<span class="nf">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[_])</span>  <span class="o">-&gt;</span> <span class="n">false</span><span class="p">;</span>
+<span class="nf">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[</span><span class="nv">X</span><span class="p">])</span>  <span class="o">-&gt;</span> <span class="n">true</span><span class="p">;</span>
+<span class="nf">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;bs(</span><span class="si">~p</span><span class="s">, </span><span class="si">~p</span><span class="s">)</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">X</span><span class="p">,</span> <span class="nv">List</span><span class="p">]),</span>
+    <span class="nv">Length</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">),</span>
+    <span class="nv">Middle</span> <span class="o">=</span> <span class="p">(</span><span class="nv">Length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">div</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nv">Value</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">nth</span><span class="p">(</span><span class="nv">Middle</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+    <span class="k">if</span>
+        <span class="nv">X</span> <span class="o">==</span> <span class="nv">Value</span> <span class="o">-&gt;</span> <span class="n">true</span><span class="p">;</span>
+        <span class="nv">X</span> <span class="o">&gt;</span> <span class="nv">Value</span> <span class="o">-&gt;</span> <span class="n">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">sublist</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">Middle</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">Length</span><span class="p">));</span>
+        <span class="nv">X</span> <span class="o">&lt;</span> <span class="nv">Value</span> <span class="o">-&gt;</span> <span class="n">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">sublist</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">Middle</span><span class="p">))</span>
+    <span class="k">end</span><span class="p">.</span>
+</pre></div>
+
+
+<p><strong>What&#8217;s going&nbsp;on?</strong></p>
+<ul>
+<li>The <code>_</code> is the &#8220;don&#8217;t care&#8221; variable, which is a common thing to use in many languages (for instance, whenever you&#8217;re iterating and not using the counter, e.g. <code>for _ in range(0, 10)</code>). This also happens to silence a &#8220;unused variable&#8221; warning made by the Erlang compiler.<ul>
+<li>We see these in use for two of the base cases, and their placement makes sense if you think about it. Binary search of an empty list, list containing useless information, or target variable containing useless information should never be&nbsp;true.</li>
+</ul>
+</li>
+<li>We see use of <em>pattern-matching</em>. Instead&nbsp;of</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="nf">function</span><span class="p">(</span><span class="nv">Args</span><span class="p">)</span>
+   <span class="k">if</span> <span class="nv">X</span> <span class="n">then</span>
+      <span class="nv">Expression</span>
+   <span class="n">else</span> <span class="k">if</span> <span class="nv">Y</span> <span class="n">then</span>
+      <span class="nv">Expression</span>
+   <span class="n">else</span>
+      <span class="nv">Expression</span>
+</pre></div>
+
+
+<p>We&nbsp;write:</p>
+<div class="highlight"><pre><span></span><span class="nf">function</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Expression</span><span class="p">;</span>
+<span class="nf">function</span><span class="p">(</span><span class="nv">Y</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">Expression</span><span class="p">;</span>
+<span class="nf">function</span><span class="p">(_)</span> <span class="o">-&gt;</span>
+  <span class="nv">Expression</span><span class="p">.</span>
+</pre></div>
+
+
+<h2>The final&nbsp;code</h2>
+<p>Your file, <code>binary_search.erl</code>, should look something like this at the&nbsp;end:</p>
+<div class="highlight"><pre><span></span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">binary_search</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">binary_search</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+
+<span class="nf">binary_search</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span>
+    <span class="k">when</span>
+        <span class="nb">is_number</span><span class="p">(</span><span class="nv">X</span><span class="p">),</span>
+        <span class="nb">is_list</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="n">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">sort</span><span class="p">(</span><span class="nv">List</span><span class="p">)).</span>
+
+<span class="nf">bs</span><span class="p">(_,</span> <span class="p">[])</span>   <span class="o">-&gt;</span> <span class="n">false</span><span class="p">;</span>
+<span class="nf">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[</span><span class="nv">X</span><span class="p">])</span>  <span class="o">-&gt;</span> <span class="n">true</span><span class="p">;</span>
+<span class="nf">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="p">[_])</span>  <span class="o">-&gt;</span> <span class="n">false</span><span class="p">;</span>
+<span class="nf">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="n">ok</span> <span class="o">=</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;bs(</span><span class="si">~p</span><span class="s">, </span><span class="si">~p</span><span class="s">)</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">X</span><span class="p">,</span> <span class="nv">List</span><span class="p">]),</span>
+    <span class="nv">Length</span> <span class="o">=</span> <span class="nb">length</span><span class="p">(</span><span class="nv">List</span><span class="p">),</span>
+    <span class="nv">Middle</span> <span class="o">=</span> <span class="p">(</span><span class="nv">Length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">div</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nv">Value</span> <span class="o">=</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">nth</span><span class="p">(</span><span class="nv">Middle</span><span class="p">,</span> <span class="nv">List</span><span class="p">),</span>
+    <span class="k">if</span>
+        <span class="nv">X</span> <span class="o">==</span> <span class="nv">Value</span> <span class="o">-&gt;</span> <span class="n">true</span><span class="p">;</span>
+        <span class="nv">X</span> <span class="o">&gt;</span> <span class="nv">Value</span> <span class="o">-&gt;</span> <span class="n">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">sublist</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="nv">Middle</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">Length</span><span class="p">));</span>
+        <span class="nv">X</span> <span class="o">&lt;</span> <span class="nv">Value</span> <span class="o">-&gt;</span> <span class="n">bs</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nn">lists</span><span class="p">:</span><span class="nf">sublist</span><span class="p">(</span><span class="nv">List</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nv">Middle</span><span class="p">))</span>
+    <span class="k">end</span><span class="p">.</span>
+</pre></div>
+
+
+<h2>Putting it to&nbsp;use</h2>
+<div class="highlight"><pre><span></span><span class="sc">$ </span><span class="n">erl</span>
+<span class="nv">Erlang</span><span class="o">/</span><span class="nv">OTP</span> <span class="mi">18</span> <span class="p">[</span><span class="n">erts</span><span class="o">-</span><span class="mi">7</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">1</span><span class="p">]</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="p">[</span><span class="mi">64</span><span class="o">-</span><span class="n">bit</span><span class="p">]</span> <span class="p">[</span><span class="nn">smp</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span> <span class="p">[</span><span class="n">async</span><span class="o">-</span><span class="nn">threads</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="p">[</span><span class="n">hipe</span><span class="p">]</span> <span class="p">[</span><span class="n">kernel</span><span class="o">-</span><span class="nn">poll</span><span class="p">:</span><span class="n">false</span><span class="p">]</span> <span class="p">[</span><span class="n">dtrace</span><span class="p">]</span>
+
+<span class="nv">Eshell</span> <span class="nv">V7</span><span class="p">.</span><span class="mi">2</span><span class="p">.</span><span class="mi">1</span>  <span class="p">(</span><span class="n">abort</span> <span class="n">with</span> <span class="err">^</span><span class="nv">G</span><span class="p">)</span>
+<span class="mi">1</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">binary_search</span><span class="p">).</span>
+<span class="p">{</span><span class="n">ok</span><span class="p">,</span><span class="n">binary_search</span><span class="p">}</span>
+<span class="mi">2</span><span class="o">&gt;</span> <span class="nn">binary_search</span><span class="p">:</span><span class="nf">binary_search</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]).</span>
+<span class="nf">bs</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="nf">bs</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">true</span>
+</pre></div>
+
+
+<p>Cool! I know I left out a lot of stuff - mostly because I don&#8217;t want to rewrite all of <em><a href="http://learnyousomeerlang.com/">Learn You Some Erlang for Great&nbsp;Good!</a></em></p>
+<p>And I really hope this piques your interest to learn it more formally. If you want to learn more about Erlang, I <em>highly</em> recommend reading some of the links&nbsp;below.</p>
+<h2>Sources</h2>
+<p>[1] <a href="http://www.erlang.org/course/history.html">http://www.erlang.org/course/history.html</a><br />
+[2] <a href="http://www.erlang.org/course/history.html">http://veldstra.org/whyerlang/</a><br />
+[3] <a href="http://learnyousomeerlang.com/">http://learnyousomeerlang.com/</a>  </p>
+  </div>
+</div>
+      </div>
+
+      <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+      <script>
+        (function(document) {
+          var i = 0;
+          // snip empty header rows since markdown can't
+          var rows = document.querySelectorAll('tr');
+          for(i=0; i<rows.length; i++) {
+            var ths = rows[i].querySelectorAll('th');
+            var rowlen = rows[i].children.length;
+            if (ths.length > 0 && ths.length === rowlen) {
+              rows[i].remove();
+            }
+          }
+        })(document);
+      </script>
+
+      <script>
+        /* Lanyon & Poole are Copyright (c) 2014 Mark Otto. Adapted to Pelican 20141223 and extended a bit by @thomaswilley */
+        (function(document) {
+          var toggle = document.querySelector('.sidebar-toggle');
+          var sidebar = document.querySelector('#sidebar');
+          var checkbox = document.querySelector('#sidebar-checkbox');
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            if(!checkbox.checked ||
+            sidebar.contains(target) ||
+            (target === checkbox || target === toggle)) return;
+            checkbox.checked = false;
+            }, false);
+            })(document);
+      </script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-57948440-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+       </script>
+     </div>
+  </body>
+</html>
