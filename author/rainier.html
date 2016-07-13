@@ -72,6 +72,40 @@ styles, `#sidebar-checkbox` for behavior. -->
 <div class="posts">
   <div class="post">
     <h1 class="post-title">
+      <a href="/latex-in-a-makefile.html" rel="bookmark" title="Permalink to LaTeX in a Makefile">LaTeX in a&nbsp;Makefile</a>
+    </h1>
+    <span class="post-date">March 12, 2016</span>
+
+    <p>In my parallel computing class this semester, we have to write reports with timing results and some analysis using LaTeX. Since we already cook up Makefiles to compile our <span class="caps">MPI</span> C programs, why don&#8217;t we construct our reports the same way&nbsp;too?</p>
+<p>Here is a Makefile I wrote to compile my programs and construct the <span class="caps">PDF</span> for my&nbsp;report:</p>
+<div class="highlight"><pre><span></span><span class="nv">LATEXTMP</span><span class="o">=</span>*.aux *.log *.toc
+<span class="nv">EXECS</span><span class="o">=</span>ex6 ex7
+<span class="nv">MPICC</span><span class="o">?=</span>mpicc
+<span class="nv">LATEXCMP</span><span class="o">=</span>pdflatex
+
+<span class="nf">all</span><span class="o">:</span> ${<span class="n">EXECS</span>}
+
+<span class="nf">ex6</span><span class="o">:</span> <span class="n">ex</span>6.<span class="n">c</span>
+    <span class="si">${</span><span class="nv">MPICC</span><span class="si">}</span> -o ex6 ex6.c
+
+<span class="nf">ex7</span><span class="o">:</span> <span class="n">ex</span>7.<span class="n">c</span>
+    <span class="si">${</span><span class="nv">MPICC</span><span class="si">}</span> -o ex7 ex7.c
+
+<span class="nf">report</span><span class="o">:</span> <span class="n">report</span>.<span class="n">tex</span>
+    <span class="si">${</span><span class="nv">LATEXCMP</span><span class="si">}</span> report.tex
+
+<span class="nf">clean</span><span class="o">:</span>
+    rm <span class="si">${</span><span class="nv">EXECS</span><span class="si">}</span> <span class="si">${</span><span class="nv">LATEXTMP</span><span class="si">}</span>
+</pre></div>
+
+
+<p>If you are familiar with Make, this set of rules should be fairly straightforward to follow. I also find this useful for getting rid of the temporary files that pdflatex generates, without say, fat-fingering a regex upon <code>rm</code>.</p>
+<p>If this is new to you, the <a href="https://www.gnu.org/software/make/manual/make.html#Introduction"><span class="caps">GNU</span> Make Manual</a> is a well-written tutorial to&nbsp;start.</p>
+<p>Make Make great again!&nbsp;😛</p>
+<p><em>What kind of automation tools do you use for tasks that aren&#8217;t typically&nbsp;automated?</em></p>
+  </div>
+  <div class="post">
+    <h1 class="post-title">
       <a href="/learning-how-to-speak.html" rel="bookmark" title="Permalink to Learning how to speak">Learning how to&nbsp;speak</a>
     </h1>
     <span class="post-date">January 01, 2016</span>
