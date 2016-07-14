@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <title>rainier</title>
+
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/theme/css/poole.css"/>
+    <link rel="stylesheet" href="/theme/css/syntax.css"/>
+    <link rel="stylesheet" href="/theme/css/lanyon.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    <link rel="stylesheet" href="/theme/css/styles.css"/>
+
+
+
+
+  </head>
+
+  <body class="layout-reverse">
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <div class="profile">
+      <img src="/theme/img/profile.png"/>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <a class="sidebar-nav-item" href="/">about</a>
+    <a class="sidebar-nav-item" href="/blog">blog</a>
+    <a class="sidebar-nav-item" href="/projects">projects</a>
+
+
+  </nav>
+
+  <div class="sidebar-item">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <ul class="social">
+      <li><a class="sc-github" href="https://github.com/rainiera" target="_blank"><i class="fa fa-github"></i></a></li>
+      <li><a class="sc-angellist" href="https://angel.co/rainiera" target="_blank"><i class="fa fa-angellist"></i></a></li>
+      <li><a class="sc-linkedin" href="https://linkedin.com/in/rainiera" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+      <li><a class="sc-twitter" href="https://twitter.com/rainieratx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2016. All rights reserved.
+    </p>
+    <p class="tiny-note">
+      <a class="muted" href="https://github.com/rainiera/pelicanyan">pelicanyan v0.1</a>
+    </p>
+  </div>
+</div>    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">rainier</a>
+            <small>codes, reads, and blogs</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+<div class="posts">
+<div class="post">
+    <h1 class="post-title">
+      Optimizing your iteration&nbsp;speed
+    </h1>
+    <span class="post-date">July 10, 2016</span>
+
+    <p>One Quora answer that&#8217;s really stuck with me for the past few months is <a href="https://www.quora.com/What-are-the-things-required-to-become-a-hardcore-programmer/answer/Edmond-Lau">Edmond Lau&#8217;s answer</a> to &#8220;What are the things required to become a hardcore programmer?&#8221; The entire answer is solid, but this is the part I will focus&nbsp;on:</p>
+<blockquote>
+<p><strong>4. Optimize your iteration&nbsp;speed.</strong></p>
+<p>Say it takes you 12 seconds to search and navigate from a function call to where it’s defined. And suppose you have to do similar navigations 60 times per day. That’s 12 minutes per day spent navigating files. If you learn enough keyboard shortcuts in your text editor to navigate to a file in 2 seconds instead of 12, then over the course of a day, you&#8217;d save 10 minutes. Every year, you’d save an entire 40-hour work&nbsp;week.</p>
+<p>Find 3 more similar optimizations, and you’d save a month. Imagine what you could do with an extra month per&nbsp;year.</p>
+<p>Or suppose that you’re fixing a bug that requires you to start the app and then navigate through five screens to set up the right conditions to trigger the bug. Could you spend 10 minutes to wire it up so that it goes to the buggy screen on startup? You’d be able to iterate significantly faster on that bug with a small initial&nbsp;investment.</p>
+<p>Systematically ask yourself, “How can I iterate faster?” The payoffs will be&nbsp;enormous.</p>
+</blockquote>
+<p>One of the payoffs, not explicitly mentioned, is that decreasing your iteration time will lower your chances of emptying your mental &#8220;cache&#8221; or &#8220;stack&#8221; of things to do, i.e., getting distracted, while you&#8217;re spending time on minor, unnecessary context&nbsp;switches.</p>
+<p>I&#8217;m a student currently at my second software internship. As someone who&#8217;s been developing stuff for just a little under two years, I&#8217;m not the fastest, but I&#8217;ve still managed to accumulate a list of small, medium, and large techniques that speed up my development. I feel like adopting <em>every</em> technique possible (like learning how to use the Dvorak keyboard, for me) would be impractical, so these are the ones that keep me fast but sane. It also goes without saying that different tricks will work for different people, so I hope my tips are general enough for most budding&nbsp;developers.</p>
+<p>(<em>By the way, most of these work best if you work in a Unix environment. Most of my work these days is done on <span class="caps">OS</span> X and when I&#8217;m ssh&#8217;d into Linux boxes.</em>)
+<br>
+<br></p>
+<h2>Small&nbsp;things</h2>
+<p><strong>Select all/copy/paste</strong>&nbsp;(well-known)</p>
+<p><code>[Cmd-a]</code>/<code>[Cmd-c]</code>/<code>[Cmd-v]</code></p>
+<p><strong>Quickly navigate and select&nbsp;text</strong></p>
+<p>Using keyboard shortcuts such as <code>[Cmd-Left/Right]+[Shift-Cmd-Right/Left]</code> to highlight a line. Experiment with&nbsp;these!</p>
+<p><strong>Get to the beginning of a line in the&nbsp;shell</strong></p>
+<p><code>[Ctrl-a]</code></p>
+<p><strong>New tab/Close tab in most programs that have&nbsp;tabs</strong></p>
+<p><code>[Ctrl-t]</code>/<code>[Ctrl-w]</code></p>
+<p><strong>Issue the last command in <code>sudo</code> mode</strong></p>
+<p><code>sudo !!</code></p>
+<p>At first, I thought it was a funny alias my mentor made, as in, &#8220;sudo, darn it!&#8221;. But <code>!!</code> (read: &#8220;<a href="http://ss64.com/bash/bang.html">bang-bang</a>&#8220;) is a great thing to&nbsp;know!!</p>
+<p><strong>Launch Sublime Text from the command&nbsp;line</strong></p>
+<p>If I&#8217;m not using <a href="http://www.vim.org/download.php">Vim</a> or <a href="http://macdown.uranusjr.com/">MacDown</a>, I open up Sublime like&nbsp;so:</p>
+<p><code>subl README.md</code></p>
+<p>You can either add an alias to the Sublime app in your shell profile or add a symlink to it in one of the <code>/bin</code> folders of your <code>PATH</code>.</p>
+<p><em>More: <a href="http://stackoverflow.com/questions/16199581/opening-sublime-text-on-command-line-as-subl-on-mac-os">Stack Overflow&nbsp;link</a></em></p>
+<p><strong>Take advantage of Spotlight (or <a href="https://www.alfredapp.com/">Alfred</a>)</strong></p>
+<p>It takes me less than a second to launch the most-used applications on my desktop. To do that, all I have to do is type <code>[Cmd-Space]</code> anywhere and the first few letters, if not just the first letter, of the application.
+<br>
+<br></p>
+<h2>Medium&nbsp;things</h2>
+<p><strong>Use&nbsp;oh-my-zsh</strong></p>
+<p><a href="https://github.com/robbyrussell/oh-my-zsh">Oh My Zsh</a> is an easy-to-install framework for installing and managing <code>zsh</code>, an alternative shell to <code>bash</code>. The most useful feature for me is its fast autocompletion and ability to simply tab through autocompletion results. It also makes your shell look fancy&nbsp;:)</p>
+<p><em>More: <a href="https://www.quora.com/What-is-the-difference-between-bash-and-zsh">Difference between bash and&nbsp;zsh</a></em></p>
+<p><strong>Use a good <code>.vimrc</code> if you use&nbsp;Vim</strong></p>
+<p>I&#8217;m pretty lazy and use the one by &#8220;amix&#8221; out of the box. If I cared more to study Vimscript, I could roll my own and be an <code>3l33t h4x0r</code>, but this will&nbsp;do.</p>
+<p><em>More: <a href="https://github.com/amix/vimrc">The ultimate&nbsp;vimrc</a></em></p>
+<p><strong>Add stuff to your <code>.bash_profile</code>/<code>.bashrc</code>/<code>.zshrc</code></strong></p>
+<div class="highlight"><pre><span></span><span class="nb">alias</span> <span class="nv">workonproj</span><span class="o">=</span><span class="s2">&quot;ssh -t rainier.ababao@xyz.company.com &#39;cd ~/project_directory; bash&#39;&quot;</span>
+</pre></div>
+
+
+<p>It&#8217;s quite nice to open up the shell and type in a short alias to ssh into a&nbsp;server.</p>
+<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">GITPAT</span><span class="o">=</span><span class="s2">&quot;xyz&quot;</span>
+</pre></div>
+
+
+<p>If I have GitHub two-factor auth enabled, I&#8217;m required to use a &#8220;personal access token&#8221; to authenticate pushes if I cloned by <span class="caps">HTTPS</span> instead of <span class="caps">SSH</span>. In that case, I can just <code>echo $GITPAT</code> since it&#8217;s an environment variable in my private shell profile, and copy-paste it whenever I have to authenticate. However, I stopped doing this when I learned about triggers for my&nbsp;terminal&#8230;</p>
+<p><em>More: <a href="http://linuxcommand.org/lc3_learning_the_shell.php">Learning the&nbsp;Shell</a></em></p>
+<p><strong>Take advantage of&nbsp;iTerm2</strong></p>
+<p>For command line work, I use iTerm2 instead of Terminal. There are a lot of great things about it, and one of them is triggers. A trigger is a regex that iTerm2 listens for, followed by an action, like automatically entering text as if the user had typed it in themselves. I have a trigger set up so that when <code>\[sudo\] password for rainier.ababao</code> appears, the password manager opens and I just press <code>[Enter]</code> for iTerm2 to put in my&nbsp;password.</p>
+<p><em>More: <a href="https://www.iterm2.com/documentation-triggers.html">iTerm2 triggers</a></em>
+<br>
+<br></p>
+<h2>Large&nbsp;things</h2>
+<p><strong>Improve your words per minute (<span class="caps">WPM</span>)</strong></p>
+<p>This is a pretty important one. Learn to keep your fingers on the home row and touch-type! It will be slow at first, but you&#8217;ll see gains from 40 <span class="caps">WPM</span> to 100-120 <span class="caps">WPM</span> within a few months if you practice <em>every day</em>. That&#8217;s at least <em>doubling</em> one&#8217;s typing&nbsp;speed!</p>
+<p><em>Some fun: <a href="http://play.typeracer.com/">play.typeracer.com</a></em></p>
+<p><strong>Master a text&nbsp;editor</strong></p>
+<p>I started forcing myself to use Vim last year and have since gotten faster editing with it than with any other text editor. Vim comes installed with <code>vimtutor</code>, a classic interactive tutorial for the&nbsp;editor.</p>
+<p>The common thread in a lot of these micro-optimizations is keeping your fingers on the keyboard and away from the mouse.
+<br>
+<br>
+<em>What are your favorite optimizations? Feel free to <span class="caps">DM</span> or tweet <a href="https://twitter.com/rainieratx">@rainieratx</a> with corrections and&nbsp;suggestions.</em></p>
+  </div>
+</div>
+      </div>
+
+      <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+      <script>
+        (function(document) {
+          var i = 0;
+          // snip empty header rows since markdown can't
+          var rows = document.querySelectorAll('tr');
+          for(i=0; i<rows.length; i++) {
+            var ths = rows[i].querySelectorAll('th');
+            var rowlen = rows[i].children.length;
+            if (ths.length > 0 && ths.length === rowlen) {
+              rows[i].remove();
+            }
+          }
+        })(document);
+      </script>
+
+      <script>
+        /* Lanyon & Poole are Copyright (c) 2014 Mark Otto. Adapted to Pelican 20141223 and extended a bit by @thomaswilley */
+        (function(document) {
+          var toggle = document.querySelector('.sidebar-toggle');
+          var sidebar = document.querySelector('#sidebar');
+          var checkbox = document.querySelector('#sidebar-checkbox');
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            if(!checkbox.checked ||
+            sidebar.contains(target) ||
+            (target === checkbox || target === toggle)) return;
+            checkbox.checked = false;
+            }, false);
+            })(document);
+      </script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-57948440-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+       </script>
+     </div>
+  </body>
+</html>
