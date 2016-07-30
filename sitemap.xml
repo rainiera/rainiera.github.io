@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
+    <loc>/crazy-python-one-liners.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>/optimizing-your-iteration-speed.html</loc>
     <priority>0.8</priority>
   </url>

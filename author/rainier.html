@@ -72,6 +72,235 @@ styles, `#sidebar-checkbox` for behavior. -->
 <div class="posts">
   <div class="post">
     <h1 class="post-title">
+      <a href="/crazy-python-one-liners.html" rel="bookmark" title="Permalink to Crazy Python one-liners">Crazy Python&nbsp;one-liners</a>
+    </h1>
+    <span class="post-date">July 28, 2016</span>
+
+    <h2>Motivation</h2>
+<p>In this post, we will explore a string manipulation task with the constraint that the solution is to be in as few lines as possible. Why? Just for fun. I would <em>never</em> commit an unclear, maybe inefficient one-liner into production code just to show off, and you shouldn&#8217;t either. However, I think this and similar constraint puzzles (in the category of what is called &#8220;code golf&#8221;) are really fun mental exercises in abstraction, problem decomposition, and mastering a language&#8217;s esoteric&nbsp;features.</p>
+<p>The Slack for one of the student organizations I&#8217;m in has a channel called #<em>politics</em>. The channel&#8217;s pinned post is an ever-growing <span class="caps">URL</span> to a visualization of each channel member&#8217;s political views on the two axes of the political spectrum created by this website: &#8220;Libertarian-Authoritarian&#8221; and&nbsp;&#8220;Left-Right&#8221;.</p>
+<p>The following is a sample <span class="caps">URL</span> that&#8217;s pinned in our channel (names replaced with the Greek&nbsp;alphabet):</p>
+<div class="highlight"><pre><span></span>https://www.politicalcompass.org/crowdchart?alpha=-3.38%2C-5.38&amp;beta=-2.75%2C-4.62&amp;gamma=-4.63%2C-4.15&amp;delta=-4.75%2C-4.97&amp;epsilon=-9.0%2C-8.31&amp;zeta=-7.38%2C-4.36&amp;eta=-3.5%2C-3.6&amp;theta=-4.38%2C-2.92&amp;iota=-7.13%2C-6.0&amp;kappa=1.63%2C-2.36&amp;lambda=-5.75%2C-6.51&amp;mu=-3.25%2C-3.64&amp;nu=1.75%2C-2.15&amp;xi=-3.75%2C-5.08&amp;name=omicron&amp;ec=-4.88&amp;soc=-2.05
+</pre></div>
+
+
+<p>And a sample&nbsp;image:</p>
+<p><img alt="image" src="https://www.politicalcompass.org/charts/crowdchart?alpha=-3.38%2C-5.38&amp;beta=-2.75%2C-4.62&amp;gamma=-4.63%2C-4.15&amp;delta=-4.75%2C-4.97&amp;epsilon=-9.0%2C-8.31&amp;zeta=-7.38%2C-4.36&amp;eta=-3.5%2C-3.6&amp;theta=-4.38%2C-2.92&amp;iota=-7.13%2C-6.0&amp;kappa=1.63%2C-2.36&amp;lambda=-5.75%2C-6.51&amp;mu=-3.25%2C-3.64&amp;nu=1.75%2C-2.15&amp;xi=-3.75%2C-5.08&amp;name=omicron&amp;ec=-4.88&amp;soc=-2.05" /></p>
+<p>(Not surprising, considering that I go to the University of Texas). It would be nice to get a <span class="caps">JSON</span> encoding of this information so we might be able to integrate it into dataviz tools for&nbsp;practice.</p>
+<h2>Problem</h2>
+<p>Given an <span class="caps">URL</span>, such&nbsp;as:</p>
+<div class="highlight"><pre><span></span>https://www.politicalcompass.org/charts/crowdchart?alpha=-3.38%2C-5.38&amp;beta=-2.75%2C-4.62&amp;gamma=-4.63%2C-4.15&amp;name=omicron&amp;ec=-4.88&amp;soc=-2.05
+</pre></div>
+
+
+<p>write a function to deserialize it into a <span class="caps">JSON</span>-like encoding, such&nbsp;as:</p>
+<div class="highlight"><pre><span></span>[
+    {
+        &quot;alpha&quot;: {
+            &quot;economic&quot;: &quot;-3.38&quot;,
+            &quot;social&quot;: &quot;-5.38&quot;
+        }
+    },
+    {
+        &quot;beta&quot;: {
+            &quot;economic&quot;: &quot;-2.75&quot;,
+            &quot;social&quot;: &quot;-4.62&quot;
+        }
+    },
+    {
+        &quot;gamma&quot;: {
+            &quot;economic&quot;: &quot;-4.63&quot;,
+            &quot;social&quot;: &quot;-4.15&quot;
+        }
+    },
+    {
+        &quot;omicron&quot;: {
+            &quot;economic&quot;: &quot;-4.88&quot;,
+            &quot;social&quot;: &quot;-2.05&quot;
+        }
+    }
+]
+</pre></div>
+
+
+<p>using as few lines as&nbsp;possible.</p>
+<h2>Decomposition</h2>
+<p>We are mainly interested in the names of people and their econo-/socio- political preference scores, which are delimited by various characters. In a string <code>s = 'https://www.politicalcompass.org/charts/crowdchart?alpha=-3.38%2C-5.38&amp;beta=-2.75%2C-4.62&amp;gamma=-4.63%2C-4.15&amp;name=omicron&amp;ec=-4.88&amp;soc=-2.05'</code>, we can split it by <code>?</code> to return a list&nbsp;object:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;https://www.politicalcompass.org/charts/crowdchart?alpha=-3.38%2C-5.38&amp;beta=-2.75%2C-4.62&amp;gamma=-4.63%2C-4.15&amp;name=omicron&amp;ec=-4.88&amp;soc=-2.05&#39;</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+<span class="p">[</span><span class="s1">&#39;https://www.politicalcompass.org/charts/crowdchart&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;alpha=-3.38%2C-5.38&amp;beta=-2.75%2C-4.62&amp;gamma=-4.63%2C-4.15&amp;name=omicron&amp;ec=-4.88&amp;soc=-2.05&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Now we can get the string we&#8217;re interested in using the expression <code>s.split('?')[1]</code>. In length-constrained coding, we want to minimize the number of new variable assignments, and this language&#8217;s <span class="caps">AST</span> lets us do this. Since <code>s.split('?')[1]</code> returns our string of interest, we can call <code>.split('&amp;')</code> on that expression to obtain a list of&nbsp;strings:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="p">[</span><span class="s1">&#39;alpha=-3.38%2C-5.38&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;beta=-2.75%2C-4.62&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gamma=-4.63%2C-4.15&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;name=omicron&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ec=-4.88&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;soc=-2.05&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We are getting closer to the form we would like, but there is some cleaning up to do with special cases at the end. As soon as a person (let&#8217;s say their name is <code>omicron</code>) adds their own name and scores to the list, the new <span class="caps">HTTP</span> <span class="caps">GET</span> parameters remain encoded in the <span class="caps">URL</span> (after the third-to-the-last <code>&amp;</code>). (The endpoint handler can handle URLs without the last three <span class="caps">GET</span> parameters, but we don&#8217;t want the client to have to conform their parameters to the previous parameters by hand). Let&#8217;s make an expression to select the last 3 elements in the list to transform it into one element that conforms to the rest of the&nbsp;list:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;name=omicron&#39;</span><span class="p">,</span> <span class="s1">&#39;ec=-4.88&#39;</span><span class="p">,</span> <span class="s1">&#39;soc=-2.05&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>But we&#8217;re still only interested in the string parts after the <code>=</code>, and want to make a sequence of those to combine later. If we only focus on one string <code>name=omicron</code>, we can see that we want to call <code>split('=')</code> and grab only second element of its return, i.e., <code>'name=omicron'.split('=')[1]</code>. But what if we wanted to apply this function to a list of&nbsp;strings?</p>
+<p><strong>Enter the lambda syntax.</strong> With <code>lambda</code>, we can convert a function into a&nbsp;one-liner.</p>
+<div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We can even assign it to a variable and call it like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">my_lambda</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">my_lambda</span><span class="p">(</span><span class="s1">&#39;foo=bar&#39;</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="s1">&#39;bar&#39;</span>
+</pre></div>
+
+
+<p>Also note that it looks like a mathematical function, such as f(x). But like I said earlier, we&#8217;ll keep assigning expressions to variables to the minimum. It&#8217;s important to understand that the lambda definition always contains an expression (after the <code>:</code>) that is returned upon&nbsp;evaluation.</p>
+<p>So back to the last question - how do we apply this function to a list of strings that have <code>=</code> in&nbsp;them?</p>
+<p><strong>Enter the map syntax.</strong> <code>map(func, seq)</code> applies function <code>func</code> to every element in sequence <code>seq</code>, and it always returns a sequence (such as a <code>list</code> or <code>tuple</code>) such that each element is the return of the function applied to that element. It&#8217;s probably easier to show&nbsp;you:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="nb">map</span><span class="p">(</span><span class="n">my_lambda</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo=bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz=qux&#39;</span><span class="p">,</span> <span class="s1">&#39;ham=spam&#39;</span><span class="p">,</span> <span class="s1">&#39;eggs=bacon&#39;</span><span class="p">])</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Let&#8217;s use <code>map</code> and <code>lambda</code> to compose a list of the strings we were interested in, building on the list expression we composed earlier in <code>[4]</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;omicron&#39;</span><span class="p">,</span> <span class="s1">&#39;-4.88&#39;</span><span class="p">,</span> <span class="s1">&#39;-2.05&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Now use this list as arguments and the string <code>'{}={}%2C{}'</code> as the caller to the function <code>str.format(*args)</code> to get a string that conforms to the other strings (e.g., <code>alpha=-3.38%2C-5.38</code>) in the original&nbsp;list:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="s1">&#39;{}={}%2C{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="s1">&#39;omicron=-4.88%2C-2.05&#39;</span>
+</pre></div>
+
+
+<p>(<code>*</code> is the &#8220;splat&#8221; operator, which converts a Python list into positional arguments in a function&nbsp;call.)</p>
+<p>Before we append this string to the original list, let&#8217;s get all but the last 3 elements from the original list in <code>[3]</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;alpha=-3.38%2C-5.38&#39;</span><span class="p">,</span> <span class="s1">&#39;beta=-2.75%2C-4.62&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma=-4.63%2C-4.15&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We can wrap the expression from <code>[9]</code> that returns the new string in brackets to convert it into a single-item list, and append it to the original list using the <code>+</code> operator:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;{}={}%2C{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]))]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span>
+<span class="p">[</span><span class="s1">&#39;alpha=-3.38%2C-5.38&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;beta=-2.75%2C-4.62&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gamma=-4.63%2C-4.15&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;omicron=-4.88%2C-2.05&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>We need to break up each string by <code>=</code> and <code>%2C</code> now. Hello, <code>map</code> and <code>lambda</code> again:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;%2C&#39;</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;{}={}%2C{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]))])</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span>
+<span class="p">[[</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;-3.38&#39;</span><span class="p">,</span> <span class="s1">&#39;-5.38&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;-2.75&#39;</span><span class="p">,</span> <span class="s1">&#39;-4.62&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;-4.63&#39;</span><span class="p">,</span> <span class="s1">&#39;-4.15&#39;</span><span class="p">],</span>
+ <span class="p">[</span><span class="s1">&#39;omicron&#39;</span><span class="p">,</span> <span class="s1">&#39;-4.88&#39;</span><span class="p">,</span> <span class="s1">&#39;-2.05&#39;</span><span class="p">]]</span>
+</pre></div>
+
+
+<p>And the final <code>map</code>/<code>lambda</code> combo:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">convert</span>\<span class="n">_to</span>\<span class="n">_dictlist</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;economic&#39;</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;social&#39;</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]}},</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;%2C&#39;</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;{}={}%2C{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]))]))</span>
+</pre></div>
+
+
+<p>Let&#8217;s try&nbsp;it:</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">convert</span>\<span class="n">_to</span>\<span class="n">_dictlist</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span>
+<span class="p">[{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;economic&#39;</span><span class="p">:</span> <span class="s1">&#39;-3.38&#39;</span><span class="p">,</span> <span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="s1">&#39;-5.38&#39;</span><span class="p">}},</span>
+ <span class="p">{</span><span class="s1">&#39;beta&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;economic&#39;</span><span class="p">:</span> <span class="s1">&#39;-2.75&#39;</span><span class="p">,</span> <span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="s1">&#39;-4.62&#39;</span><span class="p">}},</span>
+ <span class="p">{</span><span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;economic&#39;</span><span class="p">:</span> <span class="s1">&#39;-4.63&#39;</span><span class="p">,</span> <span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="s1">&#39;-4.15&#39;</span><span class="p">}},</span>
+ <span class="p">{</span><span class="s1">&#39;omicron&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;economic&#39;</span><span class="p">:</span> <span class="s1">&#39;-4.88&#39;</span><span class="p">,</span> <span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="s1">&#39;-2.05&#39;</span><span class="p">}}]</span>
+</pre></div>
+
+
+<p>It worked, and we defined the function in one&nbsp;line.</p>
+<p>We can use <code>print json.dumps()</code> to print it out in a nicer looking&nbsp;format.</p>
+<div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="k">print</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">convert</span>\<span class="n">_to</span>\<span class="n">_dictlist</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;economic&quot;</span><span class="p">:</span> <span class="s2">&quot;-3.38&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="s2">&quot;-5.38&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;economic&quot;</span><span class="p">:</span> <span class="s2">&quot;-2.75&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="s2">&quot;-4.62&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;gamma&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;economic&quot;</span><span class="p">:</span> <span class="s2">&quot;-4.63&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="s2">&quot;-4.15&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;omicron&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;economic&quot;</span><span class="p">:</span> <span class="s2">&quot;-4.88&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;social&quot;</span><span class="p">:</span> <span class="s2">&quot;-2.05&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<p>Nice!!</p>
+<h2>The&nbsp;answer</h2>
+<p><strong>Disclaimer</strong></p>
+<p>I didn&#8217;t get this one-liner immediately off the top of my head and on the first try. I use a fantastic <span class="caps">REPL</span>/interactive shell called <a href="https://ipython.org/">IPython</a> (where the <code>In</code>/<code>Out</code> lines come from) that makes it easy to quickly iterate (no pun intended) on composing Python code. There, I decomposed the problem, made dozens of intermediate variable assignments to heavily abstract, and then substituted the variables with the original statements and expressions they were assigned&nbsp;to.</p>
+<p><strong>The&nbsp;one-liner</strong></p>
+<div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;economic&#39;</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;social&#39;</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]}},</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;%2C&#39;</span><span class="p">),</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;{}={}%2C{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]))]))</span>
+</pre></div>
+
+
+<p><strong>Expanded for&nbsp;&#8220;clarity&#8221;</strong></p>
+<div class="highlight"><pre><span></span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span>
+  <span class="nb">map</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>
+      <span class="p">{</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="p">{</span> <span class="s1">&#39;economic&#39;</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;social&#39;</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">}</span> <span class="p">}</span>
+      <span class="nb">map</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>
+          <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;%2C&#39;</span><span class="p">),</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;{}={}%2C{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span>
+            <span class="nb">map</span><span class="p">(</span>
+              <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span>
+              <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;?&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="p">)</span>
+            <span class="p">)</span>
+          <span class="p">]</span>
+      <span class="p">)</span>
+  <span class="p">}</span>
+</pre></div>
+
+
+<h2>Resources</h2>
+<p>Some links about <code>map</code> and <code>lambda</code> (kinda Python specific) since my explanation didn&#8217;t do it&nbsp;justice:</p>
+<p>A pretty approachable introduction to lambda expressions in Python that demonstrates their usefulness in production code, scoping rules, and addresses common points of confusion: <a href="https://pythonconquerstheuniverse.wordpress.com/2011/08/29/lambda_tutorial/">Yet Another Lambda&nbsp;Tutorial</a></p>
+<p>Quora: <a href="https://www.quora.com/Is-it-better-to-use-list-comprehensions-or-map-with-a-lambda-function-when-manipulating-elements-in-a-list">Is it better to use list comprehensions or map with a lambda function when manipulating elements in a&nbsp;list?</a></p>
+<p><em>Does your favorite programming language have syntax for map, filter, reduce, and/or lambda&nbsp;expressions?</em></p>
+  </div>
+  <div class="post">
+    <h1 class="post-title">
       <a href="/optimizing-your-iteration-speed.html" rel="bookmark" title="Permalink to Optimizing your iteration speed">Optimizing your iteration&nbsp;speed</a>
     </h1>
     <span class="post-date">July 10, 2016</span>
