@@ -69,14 +69,15 @@ styles, `#sidebar-checkbox` for behavior. -->
     <h1>projects</h1>
     
 
-    <h2>Personal</h2>
+    <hr />
+<h2>Personal</h2>
 <p><strong>godhat</strong><br />
 <em>August 2016</em><br />
 A distributed hash table written in Go - currently a hard work-in-progress.<br />
 <a href="https://github.com/rainiera/godhat">github</a></p>
 <p><strong>orderd</strong><br />
 <em>August 2016</em><br />
-The repo description is <strong>Consumer-Facing Order-Ahead Chatbot and Merchant Order-Ahead Reporting Interface with Clover v3 <span class="caps">API</span> Integration</strong>. I did software planning, set up the Facebook Messenger <span class="caps">API</span> and webhook server, integrated part-of-speech tagging, a Redis cache, and implemented a naive item recommender using collaborative filtering. Built at the internal Clover hackathon with two other interns. Python.<br />
+The repo description is <strong>Consumer-Facing Order-Ahead Chatbot and Merchant Order-Ahead Reporting Interface with Clover v3 <span class="caps">API</span> Integration</strong>. I did software planning, set up the Facebook Messenger <span class="caps">API</span> and webhook server, integrated part-of-speech tagging and a Redis cache, and implemented a naive item recommender using collaborative filtering. Built at the internal Clover hackathon with two other interns. Python.<br />
 <a href="http://i.imgur.com/agvTahz.jpg">diagram</a> (can&#8217;t publish&nbsp;code)</p>
 <p><strong>port-duplicator</strong><br />
 <em>July 2016</em><br />
@@ -89,7 +90,7 @@ Chat room that asynchronously calculates the sentiment of every message submitte
 <p><strong>feelsbook</strong><br />
 <em>November 2015</em><br />
 Flask web app that takes face still and pools emotional prediction data from machine learning APIs (Microsoft Cognitive Services, Indico, Clarifai) to initiate a conversation with a chatbot. I created a data pipeline including WebRTC to grab webcam data, database-less data-<span class="caps">URI</span> hosting with sshfs and other Unix calls. I introduced two hackathon newbies (Claryssa and Minah) to <span class="caps">HTML</span>, <span class="caps">CSS</span>, and <span class="caps">JS</span>. Written in Python.<br />
-<a href="http://rainier.io">blog post</a> (forthcoming) | <a href="https://github.com/rainiera/princeton">github</a></p>
+<a href="http://rainier.io/blog">blog post</a> (forthcoming) | <a href="https://github.com/rainiera/princeton">github</a></p>
 <p><strong>cloverfield</strong><br />
 <em>November 2015</em><br />
 Tried to determine the optimal database engine tuning parameters for Percona MySQL based on some load, using the <span class="caps">OLTP</span> benchmark. Then wrapped the data around a Flask app with d3 and two-factor <span class="caps">SMS</span> auth. <strong>Won <em>Honorable Mention</em> at the Clover Network Invitational 2015.</strong> Bash, Python.<br />
@@ -100,17 +101,22 @@ Data visualization of a network graph based on 18,000 texts, with weighted edges
 <a href="http://rainier.io/mining-18000-texts-for-fun-and-no-profit.html">blog post</a> | <a href="https://github.com/rainiera/text-graph">github</a></p>
 <p><strong>health-hack</strong><br />
 <em>July 2015</em><br />
-We tried to do something like <a href="https://technology.cloverhealth.com/managing-chronic-conditions-with-machine-learning-14c32c7787d5#.v23qcfnte">this</a> but Clover Health beat me to it. We had nice mocks and a slide deck though.<br />
+We tried to do something like <a href="https://technology.cloverhealth.com/managing-chronic-conditions-with-machine-learning-14c32c7787d5#.v23qcfnte">this</a> but Clover Health beat us to it. We had nice mocks and a slide deck though.<br />
 <a href="https://github.com/rainiera/health-hack">github</a></p>
 <p><strong>makeroute</strong><br />
 <em>February 2015</em><br />
-information forthcoming<br />
+<span class="caps">MAMP</span> stack web app that uses the Google Places and Google Maps APIs to find good restaurants on the way from point A to point B.<br />
 <a href="https://github.com/rainiera/makeroute">github</a></p>
+<p><strong>temperature sensor</strong><br />
+<em>October 2014</em><br />
+This was my first personal project ever, at the first out of 12 hackathons I&#8217;ve attended. It was an Arduino-backed temperature sensor and display that changed color based on temperature changes. I wrote the algorithm to adjust the color in C.<br />
+<a href="https://github.com/jlciam/LANhacksTX">github</a> | <a href="https://drive.google.com/file/d/0B13SgHh7__EqRWlBQUljVWl4WGs/view?usp=sharing">video</a></p>
 <p>I have more on my <a href="https://github.com/rainiera?tab=repositories">GitHub</a>, which includes one-off scripts for productivity, data science, and coding interview&nbsp;prep.</p>
+<hr />
 <h2>School</h2>
-<p><strong>PintOS</strong><br />
+<p><strong>Pintos</strong><br />
 <em>Spring 2016 (<span class="caps">CS</span> 439 Principles of Computer Systems)</em><br />
-Operating system framework for the 80x86 architecture. A partner and I pair-programmed during the entire semester to implement this toy <span class="caps">OS</span>&#8217;s threading, system calls, virtual memory, and file system. Written in C.<br />
+Features on top of an operating system framework (Linux kernel-style lists and bitmaps, etc.) for the 80x86 architecture. A partner and I pair-programmed during the entire semester to implement this toy <span class="caps">OS</span>&#8217;s threading, system calls, virtual memory, and file system. Written in C.<br />
 <a href="https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html">pintos</a></p>
 <p><strong>Cache Simulator</strong><br />
 <em>Fall 2015 (<span class="caps">CS</span> 429 Computer Organization and Architecture)</em><br />
@@ -121,7 +127,8 @@ information forthcoming<br />
 information forthcoming<br />
 <a href="http://www.cs.duke.edu/csed/poop/huff/info/">huffman&nbsp;coding</a></p>
 <p>My implementations of these are not public due to University&nbsp;policy.</p>
-<h2>Things I want to mess&nbsp;with</h2>
+<hr />
+<h2>Things I want to tinker&nbsp;with</h2>
 <ul>
 <li><a href="http://www.grpc.io/">gRPC</a></li>
 <li><a href="https://developers.google.com/protocol-buffers/">Protocol&nbsp;buffers</a></li>
@@ -132,6 +139,7 @@ information forthcoming<br />
 <li><a href="http://kafka.apache.org/documentation.html#semantics">Apache&nbsp;Kafka</a></li>
 <li><a href="http://wamp-proto.org/why">web application messaging&nbsp;protocol</a></li>
 </ul>
+<hr />
 
       </div>
 
