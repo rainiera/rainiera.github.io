@@ -75,11 +75,12 @@ styles, `#sidebar-checkbox` for behavior. -->
 <div class="posts">
   <div class="post">
     <h1 class="post-title">
-      <a href="/learning-about-lidar.html" rel="bookmark" title="Permalink to Learning about LIDAR">Learning about <span class="caps">LIDAR</span></a>
+      <a href="/learning-about-lidar-wip.html" rel="bookmark" title="Permalink to Learning about LIDAR (WIP)">Learning about <span class="caps">LIDAR</span> (<span class="caps">WIP</span>)</a>
     </h1>
     <span class="post-date">August 26, 2017</span>
 
-    <p>There are some tools and things I want to pick up in order to manage self-driving car data. In this document, I track the resources and tools I&#8217;m picking up to get to the knowledge I have currently. To be honest, I don&#8217;t have a very strong physics or computer graphics background, so my selection might reflect&nbsp;that.</p>
+    <p><em>This post is largely a work in progress, I&#8217;ve made a lot of progress in learning that hasn&#8217;t been captured here-just need to find more time to make my thoughts more clear in this sort of&nbsp;format.</em> </p>
+<p>There are some tools and things I want to pick up in order to manage self-driving car data. In this document, I track the resources and tools I&#8217;m picking up to get to the knowledge I have currently. To be honest, I don&#8217;t have a very strong physics or computer graphics background, so my selection might reflect&nbsp;that.</p>
 <p><strong>What is <span class="caps">LIDAR</span>?&nbsp;(high-level)</strong></p>
 <ul>
 <li><a href="https://news.voyage.auto/an-introduction-to-lidar-the-key-self-driving-car-sensor-a7e405590cff">An Introduction to <span class="caps">LIDAR</span>: The Key Self-Driving Car&nbsp;Sensor</a></li>
@@ -91,19 +92,23 @@ styles, `#sidebar-checkbox` for behavior. -->
 <li><a href="http://spectrum.ieee.org/cars-that-think/transportation/self-driving/under-the-hood-of-luminars-long-reach-lidar">Under the Hood of Luminar&#8217;s Long-Reach&nbsp;Lidar</a></li>
 <li><a href="http://spectrum.ieee.org/cars-that-think/transportation/sensors/quanergy-solid-state-lidar">Quanergy Announces $250 Solid-State <span class="caps">LIDAR</span> for Cars, Robots, and&nbsp;More</a></li>
 </ul>
-<p>From this, it seems like the major industry players are
-- Velodyne (<span class="caps">LIDAR</span>)
-- Quanergy (<span class="caps">LIDAR</span>)
-- Waymo (Alphabet) (everything)
-- Uber <span class="caps">ATG</span> (software)
-- Lyft (software)
-- Cruise (acquired by <span class="caps">GM</span>)&nbsp;(software)</p>
-<p>The up-and-coming ones seem to be:
-- Drive.ai (the whole car)
-- Voyage (the whole car)
-- Zoox (the whole car)
-- Comma.ai (self-driving car software)
-- Luminar (<span class="caps">LIDAR</span>)</p>
+<p>From this, it seems like the major industry players&nbsp;are  </p>
+<ul>
+<li>Velodyne (<span class="caps">LIDAR</span>)</li>
+<li>Quanergy (<span class="caps">LIDAR</span>)</li>
+<li>Waymo (Alphabet)&nbsp;(everything)</li>
+<li>Uber <span class="caps">ATG</span> (software, maybe&nbsp;everything?)</li>
+<li>Lyft (software, maybe&nbsp;everything?)</li>
+<li>Cruise (acquired by <span class="caps">GM</span>) (everything but especially&nbsp;software?)</li>
+</ul>
+<p>The up-and-coming ones seem to&nbsp;be:  </p>
+<ul>
+<li>Drive.ai (the whole&nbsp;car)</li>
+<li>Voyage (the whole&nbsp;car)</li>
+<li>Zoox (the whole&nbsp;car)</li>
+<li>Comma.ai (self-driving car&nbsp;software)</li>
+<li>Luminar (<span class="caps">LIDAR</span>)</li>
+</ul>
 <p>If I was seriously trying to be a strategist, a competitive landscape map would be apt here. But it&#8217;s simply nice to be aware of the players in the space in order to roughly forecast who might be successful in the space and make a decision about joining one of these&nbsp;companies.</p>
 <p>The nice thing about all of these new companies attempting to be &#8220;thought leaders&#8221; in the space is that they publish so much accessible material about the&nbsp;technology.</p>
 <p>There are some startups in the space that are making it easier to construct self-driving car data sets. Such as&nbsp;Scale.</p>
@@ -111,13 +116,15 @@ styles, `#sidebar-checkbox` for behavior. -->
 <ul>
 <li><a href="http://www.mngeo.state.mn.us/committee/elevation/resources/lidar_reality_check.pdf">Reality Check: Processing LiDAR&nbsp;Data</a></li>
 </ul>
-<p><strong>Classification of objects</strong> (assumes some <span class="caps">ML</span> experience&nbsp;already)</p>
+<p><strong>Object classification</strong> (assumes some <span class="caps">ML</span> experience&nbsp;already)</p>
 <ul>
 <li><a href="https://hackernoon.com/launch-a-gpu-backed-google-compute-engine-instance-and-setup-tensorflow-keras-and-jupyter-902369ed5272">Launch a <span class="caps">GPU</span>-backed Google Compute Engine instance and setup Tensorflow, Keras and&nbsp;Jupyter</a></li>
 </ul>
 <p><strong>Language&nbsp;interoperability</strong></p>
-<p>A self-driving car is one piece of a very data-intensive system. I have a gut feeling about language interoperability being a powerful tool for writing data-intensive systems. If it is true that some engineers (particularly in the research and scientific communities) are more productive when they are writing Python, then there is benefit from investing in tools&nbsp;that.</p>
+<p>A self-driving car is one piece of a very data-intensive system (the other parts are probably the cloud or servers on-prem, etc.). I have a gut feeling about language interoperability being a powerful tool for writing data-intensive systems quickly. Since if it is true that some engineers (particularly in the research and scientific communities) are more productive when they are writing Python, then there is benefit from investing in using tools that can make Python go faster. Things
+like Boost Python come to&nbsp;mind&#8230;</p>
 <p>This is a pretty cool blog post by one of the <span class="caps">TA</span>&#8217;s of a computational biology class I took a few years ago. It discusses writing a Python module that wraps C++ code, including unit tests: <a href="http://www.benjack.io/2017/06/12/python-cpp-tests.html">Building and testing a hybrid Python/C++&nbsp;package</a></p>
+<p>More to&nbsp;come.</p>
   </div>
   <div class="post">
     <h1 class="post-title">
