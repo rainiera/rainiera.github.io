@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <title>rainier</title>
+
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/theme/css/poole.css"/>
+    <link rel="stylesheet" href="/theme/css/syntax.css"/>
+    <link rel="stylesheet" href="/theme/css/lanyon.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+    <link rel="stylesheet" href="/theme/css/styles.css"/>
+
+
+
+
+  </head>
+
+  <body class="layout-reverse">
+<!-- Target for toggling the sidebar `.sidebar-checkbox` is for regular
+styles, `#sidebar-checkbox` for behavior. -->
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+<!-- Toggleable sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <div class="profile">
+      <img src="/theme/img/profile.png"/>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <a class="sidebar-nav-item" href="/blog">blog</a>
+    <a class="sidebar-nav-item" href="/podcast">podcast</a>
+    <a class="sidebar-nav-item" href="/projects">projects</a>
+    <a class="sidebar-nav-item" href="/">Rainier&nbsp;🌞</a>
+
+
+  </nav>
+
+  <div class="sidebar-item">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <ul class="social">
+      <li><a class="sc-github" href="https://github.com/rainiera" target="_blank"><i class="fa fa-github"></i></a></li>
+      <li><a class="sc-angellist" href="https://angel.co/rainiera" target="_blank"><i class="fa fa-angellist"></i></a></li>
+      <li><a class="sc-linkedin" href="https://linkedin.com/in/rainiera" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+      <li><a class="sc-twitter" href="https://twitter.com/rainieratx" target="_blank"><i class="fa fa-twitter"></i></a></li>
+    </ul>
+  </div>
+
+  <div class="sidebar-item">
+    <p>
+    &copy; 2016. All rights reserved.
+    </p>
+    <p class="tiny-note">
+      <a class="muted" href="https://github.com/rainiera/pelicanyan">pelicanyan v0.1</a>
+    </p>
+  </div>
+</div>    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">rainier</a>
+            <small>codes, reads, and blogs</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+<div class="posts">
+<div class="post">
+    <h1 class="post-title">
+      Perco-koan
+    </h1>
+    <span class="post-date">October 07, 2017</span>
+
+    <p>This week I messed up on an question whose solution involved a <span class="caps">BFS</span> over an element&#8217;s left, right, and bottom neighbors in a grid. This post exists to make sure I don&#8217;t mess it up&nbsp;again.</p>
+<p>This requires writing the function to get the neighbor coordinates of the element in a grid, like&nbsp;this&#8230;</p>
+<div class="highlight"><pre><span></span>grid = \
+[[0 0 0 1 0 0],
+ [0 0 1 X 1 0],
+ [0 0 0 1 0 0]]
+
+# let&#39;s say we want the neighbors of the coordinate where &#39;X&#39; is
+get_neighbors(grid, 1, 3) -&gt; [(1, 2), (2, 3), (1, 4)]
+</pre></div>
+
+
+<p>The part in question where I messed up on is my version of a <em>koan</em> (that was the word, Ben!) that I learned from competitive programming class (thanks Arnav, though I doubt you&#8217;ll ever read this). This is the <strong>incorrect</strong> version of a function that I, after countless interviews, should have really committed to memory by&nbsp;now&#8230;</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_neighbors</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">legal</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">PASS</span> \ <span class="c1"># optional additional condition, may exist/be different per question</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Do you see&nbsp;it??</p>
+<p>There are a few things wrong with it, based on me forgetting that Cartesian coordinates <code>!=</code> the convention for multi-dimensional array indexing. When I&#8217;m coding it and saying it out loud in my head, &#8220;Yeah, the change in x will be -1, change in y will be 0 if you go left, x 0 y -1 if you go bottom&#8221;, it makes total sense, but it&#8217;s wrong. Applying a <code>-1</code> transformation to the index I associated with <code>y</code> (which shouldn&#8217;t be <code>j, anyway, but</code>i`, so that was another mistake) is wrong -
+that will make me look at the neighbor <strong>above</strong> the input&nbsp;element.</p>
+<p>This is the correct way to get the left, right, and bottom&nbsp;neighbors:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_neighbors</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">dj</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">di</span><span class="p">,</span> <span class="n">dj</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">legal</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">PASS</span> \ <span class="c1"># optional additional condition, may exist/be different per question</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Do you see the difference? I flipped the indices I made a mental association with x-y coordinates for, and changed the <code>-1</code> to <code>+1</code>.</p>
+<p>Another interesting problem came up today, which involved a series of sums of a sub-matrix of size K<em>K in a matrix of size N</em>M. Here&#8217;s a candidate for a new personal&nbsp;koan:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">subsum</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">):</span>
+    <span class="n">psum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">):</span>
+        <span class="n">psum</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j1</span><span class="p">:</span><span class="n">j2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">psum</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">-</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">subsum</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">K</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">K</span><span class="p">)</span> <span class="c1"># do something with this</span>
+</pre></div>
+  </div>
+</div>
+      </div>
+
+      <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+
+      <script>
+        (function(document) {
+          var i = 0;
+          // snip empty header rows since markdown can't
+          var rows = document.querySelectorAll('tr');
+          for(i=0; i<rows.length; i++) {
+            var ths = rows[i].querySelectorAll('th');
+            var rowlen = rows[i].children.length;
+            if (ths.length > 0 && ths.length === rowlen) {
+              rows[i].remove();
+            }
+          }
+        })(document);
+      </script>
+
+      <script>
+        /* Lanyon & Poole are Copyright (c) 2014 Mark Otto. Adapted to Pelican 20141223 and extended a bit by @thomaswilley */
+        (function(document) {
+          var toggle = document.querySelector('.sidebar-toggle');
+          var sidebar = document.querySelector('#sidebar');
+          var checkbox = document.querySelector('#sidebar-checkbox');
+          document.addEventListener('click', function(e) {
+            var target = e.target;
+            if(!checkbox.checked ||
+            sidebar.contains(target) ||
+            (target === checkbox || target === toggle)) return;
+            checkbox.checked = false;
+            }, false);
+            })(document);
+      </script>
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-57948440-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+         })();
+       </script>
+     </div>
+  </body>
+</html>
