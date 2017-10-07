@@ -81,13 +81,13 @@ styles, `#sidebar-checkbox` for behavior. -->
 
     <p>This week I messed up on an question whose solution involved a <span class="caps">BFS</span> over an element&#8217;s left, right, and bottom neighbors in a grid. This post exists to make sure I don&#8217;t mess it up&nbsp;again.</p>
 <p>This requires writing the function to get the neighbor coordinates of the element in a grid, like&nbsp;this&#8230;</p>
-<div class="highlight"><pre><span></span>grid = \
-[[0 0 0 1 0 0],
- [0 0 1 X 1 0],
- [0 0 0 1 0 0]]
+<div class="highlight"><pre><span></span><span class="n">grid</span> <span class="o">=</span> \
+<span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">],</span>
+ <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="n">X</span> <span class="mi">1</span> <span class="mi">0</span><span class="p">],</span>
+ <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">]]</span>
 
-# let&#39;s say we want the neighbors of the coordinate where &#39;X&#39; is
-get_neighbors(grid, 1, 3) -&gt; [(1, 2), (2, 3), (1, 4)]
+<span class="c1"># let&#39;s say we want the neighbors of the coordinate where &#39;X&#39; is</span>
+<span class="n">get_neighbors</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># -&gt; [(1, 2), (2, 3), (1, 4)]</span>
 </pre></div>
 
 
@@ -97,26 +97,26 @@ get_neighbors(grid, 1, 3) -&gt; [(1, 2), (2, 3), (1, 4)]
     <span class="n">dy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="k">return</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span> \
             <span class="k">if</span> <span class="n">legal</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> \
-            <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">PASS</span> \ <span class="c1"># optional additional condition, may exist/be different per question</span>
+            <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">PASS</span> \ <span class="c1"># problem-dependent</span>
             <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Do you see&nbsp;it??</p>
-<p>There are a few things wrong with it, based on me forgetting that Cartesian coordinates <code>!=</code> the convention for multi-dimensional array indexing. When I&#8217;m coding it and saying it out loud in my head, like &#8220;Yeah, the change in <code>x</code> will be <code>-1</code>, change in <code>y</code> will be <code>0</code> if you go left, <code>x</code> <code>0</code> <code>y</code> <code>-1</code> if you go bottom&#8221;, it makes total sense, but it&#8217;s wrong. Applying a <code>-1</code> transformation to the index I associated with <code>y</code> (which shouldn&#8217;t be <code>j</code>, anyway, but <code>i</code>, so that was another mistake) is wrong -
-that will make me look at the neighbor <strong>above</strong> the input&nbsp;element.</p>
+<p>There are a few things wrong with it, based on my forgetting that Cartesian coordinates <code>!=</code> the convention for multi-dimensional array indexing. When I&#8217;m coding it and saying it out loud in my head, like &#8220;Yeah, the change in <code>x</code> will be <code>-1</code>, change in <code>y</code> will be <code>0</code> if you go left, <code>x</code> <code>0</code> <code>y</code> <code>-1</code> if you go bottom&#8221;, it makes total sense, but it&#8217;s wrong. Applying a <code>-1</code> transformation to the index associated with <code>y</code> (which is not <code>j</code>, by the way, but <code>i</code>, so that was another mistake) is wrong -
+that will examine the neighbor <strong>above</strong> the input&nbsp;coordinate.</p>
 <p>This is the correct way to get the left, right, and bottom&nbsp;neighbors:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_neighbors</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">visited</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
     <span class="n">di</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
     <span class="n">dj</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">di</span><span class="p">,</span> <span class="n">dj</span><span class="p">)</span> \
-            <span class="k">if</span> <span class="n">legal</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> \
-            <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">][</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="n">PASS</span> \ <span class="c1"># optional additional condition, may exist/be different per question</span>
-            <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">di</span><span class="p">,</span> <span class="n">dj</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">legal</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">x</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">][</span><span class="n">j</span><span class="o">+</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">PASS</span> \ <span class="c1"># problem-dependent</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">x</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">]</span>
 </pre></div>
 
 
-<p>Do you see the difference? I flipped the indices I made a mental association with x-y coordinates for, and changed the <code>-1</code> to <code>+1</code>.</p>
+<p>Do you see the difference? I flipped the indices I made the association with x-y coordinates for, and changed the <code>-1</code> to <code>+1</code>.</p>
 <p>Another interesting problem came up today, which involved a series of sums of a sub-matrix of size K*K in a matrix of size N*M. Here&#8217;s a candidate for a new personal&nbsp;koan:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">subsum</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i1</span><span class="p">,</span> <span class="n">i2</span><span class="p">,</span> <span class="n">j1</span><span class="p">,</span> <span class="n">j2</span><span class="p">):</span>
     <span class="n">psum</span> <span class="o">=</span> <span class="mi">0</span>
@@ -128,6 +128,9 @@ that will make me look at the neighbor <strong>above</strong> the input&nbsp;ele
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="n">K</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">subsum</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">K</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="o">+</span><span class="n">K</span><span class="p">)</span> <span class="c1"># do something with this</span>
 </pre></div>
+
+
+<p>Do you think there is a better way to do this? Please email me, so I can get a job&nbsp;😅</p>
   </div>
   <div class="post">
     <h1 class="post-title">
