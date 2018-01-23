@@ -94,7 +94,7 @@ styles, `#sidebar-checkbox` for behavior. -->
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TextCorpus</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;It&#39;s a graph.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contacts</span> <span class="o">=</span> <span class="n">get_contact_objs</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">contact_names</span> <span class="o">=</span> <span class="n">names</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">global_adj_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span>
@@ -107,7 +107,7 @@ styles, `#sidebar-checkbox` for behavior. -->
 <span class="k">class</span> <span class="nc">Contact</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A Contact obj reprs one of the people I&#39;ve contacted.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">get_name_from_fn</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="n">get_texts</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">messages_str_list</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span>
@@ -131,7 +131,7 @@ styles, `#sidebar-checkbox` for behavior. -->
 <span class="k">class</span> <span class="nc">TextMessage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A TextMessage obj&#39;s attrs correspond to the XML tags I care about.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">,</span> <span class="n">posix</span><span class="p">,</span> <span class="n">sent</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">sender</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg_id</span><span class="p">,</span> <span class="n">posix</span><span class="p">,</span> <span class="n">sent</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">sender</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">msg_id</span> <span class="o">=</span> <span class="n">msg_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">posix</span> <span class="o">=</span> <span class="n">posix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sent</span> <span class="o">=</span> <span class="n">sent</span>
@@ -189,7 +189,7 @@ styles, `#sidebar-checkbox` for behavior. -->
 
 
 <h2>Static&nbsp;visualization</h2>
-<p><img alt="Graph viz should be here" src="/images/text-graph.png" /></p>
+<p><img alt="Graph viz should be here" src="/images/text-graph.png"></p>
 <h2>Ways to&nbsp;improve</h2>
 <ul>
 <li>Didn&#8217;t include emoji 👀 or use a different encoding for them because it was breaking Python&#8217;s standard library csv file <span class="caps">IO</span>. Of course, I was going back and forth between <code>pandas</code> and <code>csvfile</code>. Could be factored into sentiment&nbsp;somehow&#8230;</li>
