@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
+    <loc>/september-07-2018-rnl.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>/learning-about-lidar-wip.html</loc>
     <priority>0.8</priority>
   </url>
@@ -73,12 +78,12 @@
   </url>
 
   <url>
-    <loc>/projects</loc>
+    <loc>/blog</loc>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>/writing</loc>
+    <loc>/projects</loc>
     <priority>1.0</priority>
   </url>
 

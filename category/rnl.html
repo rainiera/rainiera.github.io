@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
@@ -14,11 +14,6 @@
     <link rel="stylesheet" href="/theme/css/lanyon.css"/>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
     <link rel="stylesheet" href="/theme/css/styles.css"/>
-
-
-
-    <meta name="tags" contents="make" />
-
   </head>
 
   <body class="layout-reverse">
@@ -71,40 +66,50 @@ styles, `#sidebar-checkbox` for behavior. -->
       </div>
 
       <div class="container content">
+<div class="content-title">
+<h2>rnl category</h2>
+</div>
 <div class="posts">
-<div class="post">
+  <div class="post">
     <h1 class="post-title">
-      LaTeX in a&nbsp;Makefile
+      <a href="/september-07-2018-rnl.html" rel="bookmark" title="Permalink to September 07, 2018 RnL">September 07, 2018&nbsp;RnL</a>
     </h1>
-    <span class="post-date">March 12, 2016</span>
+    <span class="post-date">September 07, 2018</span>
 
-    <p>In my parallel computing class this semester, we have to write reports with timing results and some analysis using LaTeX. Since we already cook up Makefiles to compile our <span class="caps">MPI</span> C programs, why don&#8217;t we construct our reports the same way&nbsp;too?</p>
-<p>Here is a Makefile I wrote to compile my programs and construct the <span class="caps">PDF</span> for my&nbsp;report:</p>
-<div class="highlight"><pre><span></span><span class="nv">LATEXTMP</span><span class="o">=</span>*.aux *.log *.toc
-<span class="nv">EXECS</span><span class="o">=</span>ex6 ex7
-<span class="nv">MPICC</span><span class="o">?=</span>mpicc
-<span class="nv">LATEXCMP</span><span class="o">=</span>pdflatex
-
-<span class="nf">all</span><span class="o">:</span> ${<span class="n">EXECS</span>}
-
-<span class="nf">ex6</span><span class="o">:</span> <span class="n">ex</span>6.<span class="n">c</span>
-    <span class="si">${</span><span class="nv">MPICC</span><span class="si">}</span> -o ex6 ex6.c
-
-<span class="nf">ex7</span><span class="o">:</span> <span class="n">ex</span>7.<span class="n">c</span>
-    <span class="si">${</span><span class="nv">MPICC</span><span class="si">}</span> -o ex7 ex7.c
-
-<span class="nf">report</span><span class="o">:</span> <span class="n">report</span>.<span class="n">tex</span>
-    <span class="si">${</span><span class="nv">LATEXCMP</span><span class="si">}</span> report.tex
-
-<span class="nf">clean</span><span class="o">:</span>
-    rm <span class="si">${</span><span class="nv">EXECS</span><span class="si">}</span> <span class="si">${</span><span class="nv">LATEXTMP</span><span class="si">}</span>
-</pre></div>
-
-
-<p>If you are familiar with Make, this set of rules should be fairly straightforward to follow. I also find this useful for getting rid of the temporary files that pdflatex generates, without say, fat-fingering a regex upon <code>rm</code>.</p>
-<p>If this is new to you, the <a href="https://www.gnu.org/software/make/manual/make.html#Introduction"><span class="caps">GNU</span> Make Manual</a> is a well-written tutorial to&nbsp;start.</p>
-<p>Make Make great again!&nbsp;😛</p>
-<p><em>What kind of automation tools do you use for tasks that aren&#8217;t typically&nbsp;automated?</em></p>
+    <p><strong>Note</strong>/epistemic status: RnL&#8217;s (reading and listening) are my consumption logs with notes I&#8217;m <span class="caps">OK</span> making public. I spend little time polishing my thoughts and time box it to no more than 30 min to an hour on days I choose to&nbsp;log.</p>
+<p><strong>Reading</strong></p>
+<ul>
+<li><a href="https://www.ribbonfarm.com/2009/11/11/the-gervais-principle-ii-posturetalk-powertalk-babytalk-and-gametalk/">The Gervais Principle <span class="caps">II</span></a> by Venkatesh&nbsp;Rao.</li>
+</ul>
+<p>Want to say that the theory <em>may</em> not account for &#8220;lifestyle businesses&#8221;. Think sustainable software business. situations where the members at the top are the only members, people own roughly equal amount (no <span class="caps">VC</span>/&#8221;founder&#8221;-levels of equity) and no one&#8217;s creating less value than they&#8217;re getting (Losers). In this situation (lifestyle business/sustainable software business) it is possible for all members of the group to be &#8220;Sociopaths&#8221;. Rao separates &#8220;Loser&#8221; from the cultural context, curious if it&#8217;s apt to be consistent and do this for &#8220;Sociopath&#8221; category&nbsp;too.</p>
+<p><span class="caps">OR</span></p>
+<p>Is it because &#8220;lifestyle businesses&#8221; do <span class="caps">NOT</span> abide by the MacLeod Life Cycle (which he penned himself) - they do not live and grow and die/stagnate, they are in a perpetual &#8220;stagnation&#8221; (not in a pejorative sense) - that Gervais Principle <strong>is not meant to address these</strong>?</p>
+<ul>
+<li><a href="https://www.joelonsoftware.com/2003/06/03/fixing-venture-capital/">Fixing Venture Capital</a> by Joel Spolsky.
+<br>Found via this <a href="https://twitter.com/_inesmontani/status/1037842224187359233">thread</a>. Main idea (does not explicitly but is consistently) stems from <span class="caps">SITG</span>-mechanics/principal-agent problem/situations where the intended recipient is not the beneficiary&nbsp;etc.</li>
+<li><a href="https://hbr.org/2018/05/how-vc-john-doerr-sets-and-achieves-goals">How <span class="caps">VC</span> John Doerr Sets (and Achieves) Goals</a> on <span class="caps">HBR</span>
+<br>OKRs for life.&nbsp;Interesting&#8230;</li>
+<li><a href="https://hbr.org/2018/02/why-financial-statements-dont-work-for-digital-companies">Why Financial Statements Don’t Work for Digital Companies</a>
+<br>Interesting.</li>
+<li><a href="https://apps.ankiweb.net/docs/manual20.html">Anki 2.0 user manual</a>.
+<br>Related (read in past): <a href="https://robertheaton.com/2018/06/25/how-to-read/">How to Read</a> by Robert&nbsp;Heaton</li>
+<li><a href="https://www.lesswrong.com/posts/pkBzPGreRssNfDBnA/a-workflow-with-spaced-repetition">A Workflow with Spaced Repetition</a>.</li>
+</ul>
+<p><strong>Listening</strong></p>
+<ul>
+<li><a href="https://open.spotify.com/user/spotify/playlist/37i9dQZF1DWVqfgj8NZEp1?si=mhViZ453Ria0DcEFMvf-OQ">Coffee Table Jazz</a> by&nbsp;Spotify</li>
+<li><a href="https://open.spotify.com/track/6Uhhwk8oJc8SLloZIAQksB?si=PIzWhez3QtKKCZSdy3xbKQ">Machinist</a> by Japanese&nbsp;Breakfast</li>
+</ul>
+<p><strong>Writing</strong></p>
+<ul>
+<li>(complete) <a href="https://medium.com/@rainier/actually-useful-tips-for-the-ut-cns-career-fair-d415e7139d30">Actually useful tips for the <span class="caps">UT</span> <span class="caps">CNS</span> Career&nbsp;Fair</a></li>
+<li>and&nbsp;this.</li>
+</ul>
+<p><strong>Reflections</strong></p>
+<ul>
+<li>need to get better at&nbsp;storytelling</li>
+<li><span class="caps">CR</span> (&#8220;conversation retraction&#8221;): series [insert letter here] round does not sufficiently describe &#8220;how far&#8221; a company is along. for <span class="caps">B2B</span> enterprise SaaS, revenue is obviously more than whatever the letter is. then perhaps number of employees (see Spolsky <a href="https://i2.wp.com/www.joelonsoftware.com/wp-content/uploads/2003/06/vc3.png?zoom=2&amp;resize=300%2C200&amp;ssl=1">article graph</a>) but duh I knew that&nbsp;already!</li>
+</ul>
   </div>
 </div>
       </div>
